@@ -53,20 +53,18 @@
           @click="removeTask(index)"
           class="my-2 p-3 border rounded"
         >
-          <div class="row">
-            <h5 class="col-8">Prioriteit: {{ task.priority }}</h5>
-            <p class="col-4 badge rounded-pill text-bg-info">
-              {{ task.label }}
-            </p>
-          </div>
-          <p>{{ task.description }}</p>
+          <TaskComponent :task="task" />
         </li>
       </ul>
     </div>
   </div>
 </template>
 <script>
+import TaskComponent from "./components/TaskComponent.vue";
 export default {
+  components: {
+    TaskComponent,
+  },
   data() {
     return {
       newPrio: "",
@@ -83,6 +81,10 @@ export default {
         description: this.newDescription,
       };
       this.tasks.push(newTask);
+
+      this.newPrio = "";
+      this.newLabel = "";
+      this.newDescription = "";
     },
     removeTask(index) {
       this.tasks.splice(index, 1);
