@@ -3,8 +3,40 @@
     <div class="container-fluid my-3 border rounded py-3">
       <div class="row my-1">
         <div class="col">
-          <label class="form-label" for="taak">Nieuwe taak:</label>
-          <input class="form-control" id="taak" v-model="newTask" type="text">
+          <h4>Nieuwe taak:</h4>
+        </div>
+      </div>
+      <div class="row my-1">
+        <div class="col">
+          <input
+            class="form-control"
+            id="taak"
+            v-model="newPrio"
+            placeholder="Prioriteit"
+            type="text"
+          />
+        </div>
+      </div>
+      <div class="row my-1">
+        <div class="col">
+          <input
+            class="form-control"
+            id="taak"
+            v-model="newLabel"
+            placeholder="Label"
+            type="text"
+          />
+        </div>
+      </div>
+      <div class="row my-1">
+        <div class="col">
+          <textarea
+            class="form-control"
+            id="taak"
+            v-model="newDescription"
+            placeholder="Omschrijving"
+            type="text"
+          />
         </div>
       </div>
       <div class="row my-1">
@@ -15,7 +47,20 @@
     </div>
     <div class="container-fluid" v-show="tasks.length > 0">
       <ul class="row list-unstyled">
-        <li v-for="(task, index) in tasks" v-bind:key="task" @click="removeTask(index)" class="my-2 p-3 border rounded">{{ task }}</li>
+        <li
+          v-for="(task, index) in tasks"
+          v-bind:key="task"
+          @click="removeTask(index)"
+          class="my-2 p-3 border rounded"
+        >
+          <div class="row">
+            <h5 class="col-8">Prioriteit: {{ task.priority }}</h5>
+            <p class="col-4 badge rounded-pill text-bg-info">
+              {{ task.label }}
+            </p>
+          </div>
+          <p>{{ task.description }}</p>
+        </li>
       </ul>
     </div>
   </div>
@@ -24,20 +69,25 @@
 export default {
   data() {
     return {
-      newTask: "",
-      tasks: []
-    }
+      newPrio: "",
+      newLabel: "",
+      newDescription: "",
+      tasks: [],
+    };
   },
   methods: {
     addTask() {
-      this.tasks.push(this.newTask);
+      const newTask = {
+        priority: this.newPrio,
+        label: this.newLabel,
+        description: this.newDescription,
+      };
+      this.tasks.push(newTask);
     },
     removeTask(index) {
-      this.tasks.splice(index, 1)
-    }
-  }
-}
+      this.tasks.splice(index, 1);
+    },
+  },
+};
 </script>
-<style lang="scss">
-  
-</style>
+<style lang="scss"></style>
